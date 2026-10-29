@@ -19,7 +19,7 @@ import { site } from '../data/site';
         {site.intro}
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-3">
-        <a class="btn-primary" href={`mailto:${site.email}`}>邮件联系</a>
+        <a class="btn-primary" href="#work">看看在做什么</a>
         <a class="btn-ghost" href={site.github} target="_blank" rel="noreferrer">GitHub</a>
       </div>
       <ul class="mt-10 flex flex-wrap gap-2">
@@ -63,7 +63,6 @@ import { site } from '../data/site';
         {site.stack.map((item) => <li class="tag">{item}</li>)}
       </ul>
       <div class="mt-8 flex flex-wrap gap-6 text-sm">
-        <a class="link-inline" href={`mailto:${site.email}`}>{site.email}</a>
         <a class="link-inline" href={site.github} target="_blank" rel="noreferrer">
           github.com/{site.handle}
         </a>

@@ -17,7 +17,6 @@ export const site = {
   headline: '把农牧行业的业务，做成能长期运行的系统',
   intro:
     '长期在做牧场、饲料厂与农牧设备相关的系统：从业务流程梳理、架构设计到上线后的持续维护。关注系统的可用性与可维护性，也关注新技术能否真正降低一线的操作成本。',
-  email: '2309203718@qq.com',
   github: 'https://github.com/xwlgx',
   domains: ['Agent 行业落地', '牧场 TMR', '饲料厂 ERP', '农牧设备智能化', '工控联网', 'BI 大屏'],
   directions: [
