@@ -1,79 +1,75 @@
 ---
-import '../styles/global.css';
-
-const startedAt = new Date().getFullYear();
-const highlights = [
-  {
-    title: '静态托管',
-    desc: '产物是纯 HTML/CSS/JS，不依赖 Node 服务端，域名直接指向 CDN。',
-  },
-  {
-    title: '免费 HTTPS',
-    desc: 'GitHub Pages 自动签发证书，自定义域名同样支持强制 HTTPS。',
-  },
-  {
-    title: '手动直传',
-    desc: '本地 build 后把 docs 目录提交到 main，分支指向 docs 即完成发布。',
-  },
-];
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Section from '../components/Section.astro';
+import { site } from '../data/site';
 ---
 
-<!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>pages-site</title>
-    <meta name="description" content="基于 Astro 构建、托管在 GitHub Pages 的静态站点" />
-  </head>
-  <body class="bg-page text-page">
-    <main class="mx-auto flex min-h-screen w-full max-w-3xl flex-col px-6 py-16">
-      <header class="flex items-center justify-between">
-        <span class="text-sm font-medium tracking-wide text-page-muted">pages-site</span>
-        <a
-          class="rounded-full border border-page px-3 py-1 text-xs text-page-muted hover:text-page"
-          href="https://pages.github.com/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          GitHub Pages
-        </a>
-      </header>
+<BaseLayout title={`${site.name} · ${site.role}`} description={site.intro}>
+  <SiteHeader />
 
-      <section class="mt-20">
-        <p class="text-sm text-page-muted">Astro · Tailwind · 手动直传</p>
-        <h1 class="mt-3 text-3xl font-semibold leading-snug sm:text-4xl">
-          这个站点已经可以直接发布到 GitHub Pages
-        </h1>
-        <p class="mt-5 max-w-xl text-base text-page-muted">
-          执行一次构建，把生成的 docs 目录提交到 main 分支，在仓库设置里把 Pages 的来源指向
-          main / docs 即可上线。后续每次改动重复同样两步。
-        </p>
-      </section>
+  <main>
+    <section class="container-page pb-14 pt-16 sm:pt-20">
+      <p class="text-xs text-page-muted">{site.status}</p>
+      <h1 class="mt-4 max-w-[20ch] text-3xl font-semibold leading-[1.35] sm:text-4xl">
+        {site.headline}
+      </h1>
+      <p class="mt-5 max-w-[38em] text-base leading-relaxed text-page-muted">
+        {site.intro}
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <a class="btn-primary" href={`mailto:${site.email}`}>邮件联系</a>
+        <a class="btn-ghost" href={site.github} target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+      <ul class="mt-10 flex flex-wrap gap-2">
+        {site.domains.map((domain) => <li class="tag">{domain}</li>)}
+      </ul>
+    </section>
 
-      <section class="mt-14 grid gap-4 sm:grid-cols-3">
+    <Section id="work" title="方向" note="按业务场景组织">
+      <div class="grid gap-4 sm:grid-cols-3">
         {
-          highlights.map((item) => (
+          site.directions.map((item) => (
             <article class="rounded-xl border border-page bg-card p-5">
-              <h2 class="text-sm font-medium">{item.title}</h2>
-              <p class="mt-2 text-sm text-page-muted">{item.desc}</p>
+              <h3 class="text-sm font-medium">{item.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-page-muted">{item.desc}</p>
             </article>
           ))
         }
-      </section>
+      </div>
+    </Section>
 
-      <section class="mt-14 rounded-xl border border-page p-5">
-        <h2 class="text-sm font-medium">发布命令</h2>
-        <pre
-          class="mt-3 overflow-x-auto rounded-lg bg-card p-4 text-xs leading-relaxed text-page-muted"><code>npm run build
-git add docs
-git commit -m "publish: update site"
-git push</code></pre>
-      </section>
+    {
+      site.posts.length > 0 && (
+        <Section id="writing" title="文章" note={`${site.posts.length} 篇`}>
+          <ul>
+            {site.posts.map((post) => (
+              <li class="border-t border-page py-3 first:border-t-0">
+                <a class="flex items-baseline justify-between gap-4 no-underline" href={post.href}>
+                  <span class="text-sm">{post.title}</span>
+                  <span class="shrink-0 text-xs text-page-muted">{post.date}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )
+    }
 
-      <footer class="mt-auto pt-16 text-xs text-page-muted">
-        © {startedAt} pages-site · 由 Astro 构建
-      </footer>
-    </main>
-  </body>
-</html>
+    <Section id="about" title="关于">
+      <p class="max-w-[38em] text-sm leading-relaxed text-page-muted">{site.about}</p>
+      <ul class="mt-6 flex flex-wrap gap-2">
+        {site.stack.map((item) => <li class="tag">{item}</li>)}
+      </ul>
+      <div class="mt-8 flex flex-wrap gap-6 text-sm">
+        <a class="link-inline" href={`mailto:${site.email}`}>{site.email}</a>
+        <a class="link-inline" href={site.github} target="_blank" rel="noreferrer">
+          github.com/{site.handle}
+        </a>
+      </div>
+    </Section>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

@@ -1,0 +1,12 @@
+---
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-page">
+  <div class="container-page flex flex-col gap-2 py-8 text-xs text-page-muted sm:flex-row sm:items-center sm:justify-between">
+    <span>© {year} {site.name}</span>
+    <span>Astro 构建 · 托管于 GitHub Pages</span>
+  </div>
+</footer>

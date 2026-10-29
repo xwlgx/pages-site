@@ -1,0 +1,30 @@
+---
+import { site } from '../data/site';
+
+const navItems = [
+  { label: '方向', href: '#work' },
+  ...(site.posts.length > 0 ? [{ label: '文章', href: '#writing' }] : []),
+  { label: '关于', href: '#about' },
+];
+---
+
+<header class="border-b border-page">
+  <div class="container-page flex h-16 items-center justify-between">
+    <a class="flex items-baseline gap-2 no-underline" href={import.meta.env.BASE_URL}>
+      <span class="nav-link text-sm font-medium">{site.name}</span>
+      <span class="text-xs text-page-muted">{site.role}</span>
+    </a>
+    <nav class="flex items-center gap-5 text-sm" aria-label="主导航">
+      {
+        navItems.map((item) => (
+          <a class="nav-link hidden sm:inline" href={item.href}>
+            {item.label}
+          </a>
+        ))
+      }
+      <a class="nav-link" href={site.github} target="_blank" rel="noreferrer">
+        GitHub
+      </a>
+    </nav>
+  </div>
+</header>

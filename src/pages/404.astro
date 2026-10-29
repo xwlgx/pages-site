@@ -1,22 +1,18 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const base = import.meta.env.BASE_URL;
 ---
 
-<!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>页面不存在</title>
-  </head>
-  <body class="bg-page text-page">
-    <main class="mx-auto flex min-h-screen w-full max-w-3xl flex-col justify-center px-6">
-      <p class="text-sm text-page-muted">404</p>
-      <h1 class="mt-3 text-3xl font-semibold">这里没有内容</h1>
-      <p class="mt-4 text-base text-page-muted">链接可能已失效，请返回首页。</p>
-      <a class="mt-8 w-fit rounded-full border border-page px-4 py-2 text-sm" href={import.meta.env.BASE_URL}>
-        返回首页
-      </a>
-    </main>
-  </body>
-</html>
+<BaseLayout title="页面不存在" description="访问的页面不存在">
+  <SiteHeader />
+  <main class="container-page flex min-h-[60vh] flex-col justify-center py-16">
+    <p class="text-xs text-page-muted">404</p>
+    <h1 class="mt-3 text-2xl font-semibold">这里没有内容</h1>
+    <p class="mt-4 text-sm text-page-muted">链接可能已经失效，或者页面还没写。</p>
+    <a class="btn-ghost mt-8 w-fit" href={base}>返回首页</a>
+  </main>
+  <SiteFooter />
+</BaseLayout>
